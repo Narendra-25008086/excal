@@ -3,6 +3,18 @@ let chart
 let monthChart
 let editId=null
 
+function formatDate(dateString){
+
+let d=new Date(dateString)
+
+let day=String(d.getDate()).padStart(2,"0")
+let month=String(d.getMonth()+1).padStart(2,"0")
+let year=d.getFullYear()
+
+return day+"-"+month+"-"+year
+
+}
+
 function register(){
 
 auth.createUserWithEmailAndPassword(email.value,password.value)
@@ -66,17 +78,13 @@ window.location="index.html"
 }
 
 function showAll(){
-
 filterMode="all"
 loadExpenses()
-
 }
 
 function showMonth(){
-
 filterMode="month"
 loadExpenses()
-
 }
 
 function saveExpense(){
@@ -175,13 +183,15 @@ db.collection("expenses").doc(id).delete()
 
 function clearForm(){
 
-document.getElementById("date").value=""
+document.getElementById("date").valueAsDate=new Date()
 document.getElementById("category").value=""
 document.getElementById("amount").value=""
 
 }
 
 function loadExpenses(){
+
+document.getElementById("date").valueAsDate=new Date()
 
 let user=auth.currentUser
 
@@ -224,7 +234,7 @@ total += Number(data.amount)
 
 table.innerHTML += `
 <tr>
-<td>${data.date}</td>
+<td>${formatDate(data.date)}</td>
 <td>${data.category}</td>
 <td>${data.amount}</td>
 <td>
@@ -346,4 +356,32 @@ XLSX.utils.book_append_sheet(wb,ws,"Expenses")
 XLSX.writeFile(wb,"expenses.xlsx")
 
 }
+function deleteAllExpenses(){
 
+let confirmDelete = confirm("Are you sure you want to delete ALL expenses?")
+
+if(!confirmDelete) return
+
+let user = auth.currentUser
+
+db.collection("expenses")
+.where("userId","==",user.uid)
+.get()
+.then(snapshot=>{
+
+let batch = db.batch()
+
+snapshot.forEach(doc=>{
+batch.delete(doc.ref)
+})
+
+batch.commit().then(()=>{
+
+alert("All expenses deleted")
+loadExpenses()
+
+})
+
+})
+
+}
