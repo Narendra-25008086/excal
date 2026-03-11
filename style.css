@@ -34,8 +34,9 @@ scrollbar-width: auto;
 }
 
 input{
-width:100%;
+width:80%;
 padding:10px;
+
 margin:8px 0;
 border:1px solid #ccc;
 border-radius:4px;
@@ -45,7 +46,7 @@ background-color: #c4c4c4;
 
 button{
 padding:10px;
-width:100%;
+width:70%%;
 background:#ff8000;
 color:rgb(21, 21, 21);
 border:none;
