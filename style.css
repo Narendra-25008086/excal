@@ -1,6 +1,6 @@
 body{
 font-family:Arial, sans-serif;
-background:#7b7a7a;
+background:#626060;
 margin:0;
 display:flex;
 flex-direction:column;
@@ -16,12 +16,14 @@ padding:30px;
 }
 
 .container{
-background:white;
-padding:20px;
-width:95%;
-max-width:700px;
-border-radius:10px;
+background:rgb(242, 207, 207);
+padding:25px;
+width:100%;
+max-width:600px;
+border-radius:7px;
 box-shadow:0 0 10px rgba(0,0,0,0.1);
+corner-end-end-shape:
+round;
 }
 
 .topbar{
@@ -46,7 +48,7 @@ background-color: #c4c4c4;
 
 button{
 padding:10px;
-width:70%%;
+width:70%;
 background:#ff8000;
 color:rgb(21, 21, 21);
 border:none;
