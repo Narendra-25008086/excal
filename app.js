@@ -394,26 +394,26 @@ alert("Please enter your email")
 return
 }
 
-auth.fetchSignInMethodsForEmail(email)
-
-.then((methods)=>{
-
-if(methods.length == 0){
-
-alert("You are not registered. Please register first.")
-return
-
-}
-
 auth.sendPasswordResetEmail(email)
+
 .then(()=>{
 alert("Password reset email sent. Check your inbox.")
 })
 
-})
-
 .catch(error=>{
+
+if(error.code=="auth/user-not-found"){
+alert("You are not registered. Please create an account first.")
+}
+
+else if(error.code=="auth/invalid-email"){
+alert("Please enter a valid email address.")
+}
+
+else{
 alert(error.message)
+}
+
 })
 
 }
