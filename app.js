@@ -385,3 +385,35 @@ loadExpenses()
 })
 
 }
+function resetPassword(){
+
+let email = document.getElementById("email").value
+
+if(email==""){
+alert("Please enter your email")
+return
+}
+
+auth.fetchSignInMethodsForEmail(email)
+
+.then((methods)=>{
+
+if(methods.length == 0){
+
+alert("You are not registered. Please register first.")
+return
+
+}
+
+auth.sendPasswordResetEmail(email)
+.then(()=>{
+alert("Password reset email sent. Check your inbox.")
+})
+
+})
+
+.catch(error=>{
+alert(error.message)
+})
+
+}
